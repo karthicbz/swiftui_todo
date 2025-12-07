@@ -8,5 +8,5 @@ A Simple Todolist app created with SwiftUI
 * Delete tasks
 
 ## Screenshots
-![screen showing empty tasks](/assets/screen1.png)
-![screen showing empty tasks](/assets/screen2.png)
+<img src="/assets/screen1.png" alt="screen showing empty tasks" width="200"/>
+<img src="/assets/screen2.png" alt="screen showing app with tasks" width="200"/>
