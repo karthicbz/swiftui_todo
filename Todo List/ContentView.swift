@@ -37,12 +37,23 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }.frame(height: 50)
-            VStack(alignment: .leading) {
+            if $todos.isEmpty{
+                Spacer()
+                HStack(){
+                    Text("Currently Empty")
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        
+                }
+                Spacer()
+            }
+            else{ VStack(alignment: .leading) {
                 ForEach($todos) { $todo in
                     VStack(alignment: .leading) {
                         TodoItem(todo: $todo, deleteTodo: deleteTodo)
                         Divider()
                     }
+                }
                 }
             }
             Spacer()
