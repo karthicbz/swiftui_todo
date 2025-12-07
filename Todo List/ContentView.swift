@@ -41,7 +41,6 @@ struct ContentView: View {
                 ForEach($todos) { $todo in
                     VStack(alignment: .leading) {
                         TodoItem(todo: $todo, deleteTodo: deleteTodo)
-                        Divider()
                     }
                 }
             }

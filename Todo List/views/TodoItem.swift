@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TodoItem: View {
     @Binding var todo:TodoList
-//    let id:UUID
-//    @State var todos:[TodoList]
     var deleteTodo: (_ todo:TodoList)->Void
     var body: some View {
         Button(
