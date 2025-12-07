@@ -24,7 +24,7 @@ struct TodoItem: View {
                     Text(todo.todo)
                         .font(.title3)
                         .multilineTextAlignment(.leading)
-                        .strikethrough(todo.isCompleted, color: .black)
+                        .strikethrough(todo.isCompleted, color: .strikeThroughLine)
                     Spacer()
                     Button("Delete")
                     {
@@ -37,6 +37,6 @@ struct TodoItem: View {
 }
 
 #Preview {
-    TodoItem(todo: .constant(TodoList(todo: "Water Rhino", isCompleted: false, id: UUID()))) { todo in
+    TodoItem(todo: .constant(TodoList(todo: "Water Rhino", isCompleted: true, id: UUID()))) { todo in
     }
 }
