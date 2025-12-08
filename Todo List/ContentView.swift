@@ -37,6 +37,9 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }.frame(height: 50)
+            Text(Date.now, format: .dateTime.day().month().year())
+                .font(.title)
+                .foregroundColor(.blue)
             if todos.isEmpty {
                 Spacer()
                 HStack {
