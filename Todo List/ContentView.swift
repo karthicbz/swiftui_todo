@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoList: Identifiable {
+struct TodoList: Identifiable, Equatable {
     let todo: String
     var isCompleted: Bool
     let id: UUID
@@ -16,11 +16,11 @@ struct TodoList: Identifiable {
 struct ContentView: View {
     @State private var todoText: String = ""
     @State private var todos: [TodoList] = []
-    
-    func deleteTodo(todo:TodoList){
-        let newTodoList = todos.filter{todoItem in
+
+    func deleteTodo(todo: TodoList) {
+        let newTodoList = todos.filter { todoItem in
             todo.id != todoItem.id
-            
+
         }
         todos = newTodoList
     }
@@ -37,24 +37,25 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }.frame(height: 50)
-            if $todos.isEmpty{
+            if todos.isEmpty {
                 Spacer()
-                HStack(){
+                HStack {
                     Text("Currently Empty")
                         .foregroundColor(.gray)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        
+
                 }
                 Spacer()
-            }
-            else{ VStack(alignment: .leading) {
-                ForEach($todos) { $todo in
-                    VStack(alignment: .leading) {
-                        TodoItem(todo: $todo, deleteTodo: deleteTodo)
-                        Divider()
+            } else {
+                VStack(alignment: .leading) {
+                    ForEach($todos.reversed()) { $todo in
+                        VStack(alignment: .leading) {
+                            TodoItem(todo: $todo, deleteTodo: deleteTodo)
+                            Divider()
+                        }
                     }
-                }
-                }
+                }.animation(.easeIn, value: todos)
+                
             }
             Spacer()
         }
