@@ -30,10 +30,12 @@ struct ContentView: View {
             HStack {
                 TextField("Enter a task..", text: $todoText)
                 Button("Add") {
-                    todos.append(
-                        TodoList(todo: todoText, isCompleted: false, id: UUID())
-                    )
-                    todoText = ""
+                    if(!todoText.isEmpty){
+                        todos.append(
+                            TodoList(todo: todoText, isCompleted: false, id: UUID())
+                        )
+                        todoText = ""
+                    }
                 }
                 .buttonStyle(.borderedProminent)
             }.frame(height: 50)
