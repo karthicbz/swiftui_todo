@@ -6,34 +6,45 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct TodoList: Identifiable, Equatable {
-    let todo: String
+@Model
+class TodoList: Identifiable, Equatable {
+    var todo: String
     var isCompleted: Bool
-    let id: UUID
+    var id: UUID
+    
+    init(todo: String, isCompleted: Bool=false, id: UUID=UUID()) {
+        self.todo = todo
+        self.isCompleted = isCompleted
+        self.id = id
+    }
 }
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var todoText: String = ""
-    @State private var todos: [TodoList] = []
+    @Query private var todos: [TodoList]
 
-    func deleteTodo(todo: TodoList) {
-        let newTodoList = todos.filter { todoItem in
-            todo.id != todoItem.id
-
-        }
-        todos = newTodoList
-    }
-
+//    func deleteTodo(todo: TodoList) {
+//        let newTodoList = todos.filter { todoItem in
+//            todo.id != todoItem.id
+//
+//        }
+//        todos = newTodoList
+//    }
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 TextField("Enter a task..", text: $todoText)
                 Button("Add") {
                     if(!todoText.isEmpty){
-                        todos.append(
-                            TodoList(todo: todoText, isCompleted: false, id: UUID())
-                        )
+//                        todos.append(
+//                            TodoList(todo: todoText, isCompleted: false, id: UUID())
+//                        )
+//                        todoText = ""
+                        let newTodo = TodoList(todo: todoText)
+                        modelContext.insert(newTodo)
                         todoText = ""
                     }
                 }
@@ -53,9 +64,9 @@ struct ContentView: View {
                 Spacer()
             } else {
                 VStack(alignment: .leading) {
-                    ForEach($todos.reversed()) { $todo in
+                    ForEach(todos.reversed()) { todo in
                         VStack(alignment: .leading) {
-                            TodoItem(todo: $todo, deleteTodo: deleteTodo)
+                            TodoItem(todo: todo)
                             Divider()
                         }
                     }

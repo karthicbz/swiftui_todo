@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TodoItem: View {
-    @Binding var todo:TodoList
-    var deleteTodo: (_ todo:TodoList)->Void
+    @Environment(\.modelContext) private var modelContext
+    var todo:TodoList
+//    var deleteTodo: (_ todo:TodoList)->Void
     var body: some View {
         HStack{
             Button(
@@ -33,13 +34,12 @@ struct TodoItem: View {
             Spacer()
             Button("Delete")
             {
-                deleteTodo(todo)
+                modelContext.delete(todo)
             }.tint(.red)
         }
     }
 }
 
 #Preview {
-    TodoItem(todo: .constant(TodoList(todo: "Water Rhino", isCompleted: true, id: UUID()))) { todo in
-    }
+    TodoItem(todo: TodoList(todo: "Water Rhino", isCompleted: true, id: UUID()))
 }
